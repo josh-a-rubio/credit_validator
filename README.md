@@ -70,8 +70,10 @@ The program is structured in three layers:
 ## 📂 Repository Structure
 
 credit-card-validator/
+```
 ├── credit_validator.c # Main C program
 └── README.md # Documentation
+```
 
 ## 📄 License
 
