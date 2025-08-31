@@ -14,13 +14,13 @@ int main(void)
     return 0;
 }
 
-// gets user input . checks length and characters
+// gets user input . sanitize length and characters
 char* user_input(void)
 {
-    const int MIN_LEN = 12;
-    const int MAX_LEN = 19;
+    const int min_len = 12;
+    const int max_len = 19;
     
-    static char card_number[MAX_LEN + 2];  
+    static char card_number[max_len + 2];  
     size_t card_length;
     bool all_digits;
     
@@ -35,10 +35,10 @@ char* user_input(void)
         card_length = strlen(card_number);
         
         // Check if input was too long (buffer full but no newline)
-        if (card_length == MAX_LEN + 1 && card_number[card_length - 1] != '\n')
+        if (card_length == max_len + 1 && card_number[card_length - 1] != '\n')
         {
-            int c;
-            while ((c = getchar()) != '\n' && c != EOF);  // Clear remaining input
+            int last_char;
+            while ((last_char = getchar()) != '\n' && last_char != EOF);  // Clear remaining input
             all_digits = false;
             card_length = 0;
             continue;
@@ -59,7 +59,7 @@ char* user_input(void)
             }
         }
     
-    } while (card_length < MIN_LEN || card_length > MAX_LEN || !all_digits);
+    } while (card_length < min_len || card_length > max_len || !all_digits);
     return card_number;
 }
 
@@ -157,7 +157,7 @@ void validate_IIN(char* card_number)
     // discover check
     bool discover_range = (first_four_digits == 6011) || 
                             (first_three_digits >= 644 && first_three_digits <= 649) || 
-                                (first_two_digits == 65);
+                            (first_two_digits == 65);
     bool discover_length = card_length == 16;
     bool discover_card = discover_range && discover_length;
     
